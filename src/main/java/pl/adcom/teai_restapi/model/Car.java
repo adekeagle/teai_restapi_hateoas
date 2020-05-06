@@ -2,11 +2,17 @@ package pl.adcom.teai_restapi.model;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import javax.validation.constraints.NotBlank;
+
 public class Car extends RepresentationModel {
 
+    @NotBlank(message = "id may not be blank")
     private long id;
+    @NotBlank(message = "mark may not be blank")
     private String mark;
+    @NotBlank(message = "model may not be blank")
     private String model;
+    @NotBlank(message = "color may not be blank")
     private Color color;
 
     public Car() {
