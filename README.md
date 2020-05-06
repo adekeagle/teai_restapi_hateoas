@@ -1,1 +1,1 @@
-"# teai_restapi z swagger bez hateoas" 
+"# teai_restapi z swagger z hateoas" 
