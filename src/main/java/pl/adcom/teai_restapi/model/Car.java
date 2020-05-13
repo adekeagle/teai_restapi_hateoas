@@ -4,7 +4,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 import javax.validation.constraints.NotBlank;
 
-public class Car extends RepresentationModel {
+public class Car extends RepresentationModel<Car> {
 
     @NotBlank(message = "id may not be blank")
     private long id;

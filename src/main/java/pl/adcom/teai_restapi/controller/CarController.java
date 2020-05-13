@@ -34,11 +34,14 @@ public class CarController {
     @GetMapping()
     public ResponseEntity<CollectionModel<Car>> getAllCars(){
         List<Car> allCars = carService.findAllCars();
-        allCars.forEach(car -> car.add(linkTo(CarController.class).slash(car.getId()).withSelfRel()));
-        Link link = linkTo(CarController.class).withSelfRel();
 
-        CollectionModel<Car> carResources = new CollectionModel<>(allCars, link);
-        return new ResponseEntity<>(carResources, HttpStatus.OK);
+        if(!allCars.isEmpty()) {
+            allCars.forEach(car -> car.addIf(!car.hasLinks(), () -> linkTo(CarController.class).slash(car.getId()).withSelfRel()));
+            Link link = linkTo(CarController.class).withSelfRel();
+            CollectionModel<Car> carResources = new CollectionModel<>(allCars, link);
+            return new ResponseEntity<>(carResources, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}")
