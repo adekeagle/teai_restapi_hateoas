@@ -64,8 +64,8 @@ public class CarController {
         List<Car> carList = carService.findCarByColor(Color.valueOf(color.toUpperCase()));
 
         if (!carList.isEmpty()) {
-            carList.forEach(car -> car.add(linkTo(CarController.class).slash(car.getId()).withSelfRel()));
-            carList.forEach(car -> car.add(linkTo(CarController.class).withRel("allColors")));
+            carList.forEach(car -> car.addIf(!car.hasLinks(), () -> linkTo(CarController.class).slash(car.getId()).withSelfRel()));
+            carList.forEach(car -> car.addIf(!car.hasLinks(), () -> linkTo(CarController.class).withRel("allColors")));
             Link link = linkTo(CarController.class).withSelfRel();
 
             CollectionModel<Car> carResources = new CollectionModel<>(carList, link);
